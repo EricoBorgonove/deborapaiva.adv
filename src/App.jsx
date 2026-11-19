@@ -4,6 +4,8 @@ import PrivacyBanner from './PrivacyBanner.jsx'
 import WhatsAppModal from './WhatsAppModal.jsx'
 import { buildWhatsAppMessage, translations } from './i18n.js'
 import { useLanguage } from './useLanguage.js'
+import { useMediaQuery } from './useMediaQuery.js'
+import HeroBackground from './HeroBackground.jsx'
 
 const contact = {
   whatsappNumber: '5592984442917',
@@ -51,7 +53,7 @@ function App() {
   const [indicatorValues, setIndicatorValues] = useState(() => indicators.map((item) => item.value))
 
   const indicatorsRef = useRef(null)
-  const heroVideoRef = useRef(null)
+  const reducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)', true)
 
   useEffect(() => {
     document.documentElement.lang = language === 'en' ? 'en' : language === 'es' ? 'es' : language === 'fr' ? 'fr' : 'pt-BR'
@@ -76,7 +78,7 @@ function App() {
   }, [hasStartedIndicators])
 
   useEffect(() => {
-    if (!hasStartedIndicators) return
+    if (!hasStartedIndicators || reducedMotion) return
 
     let frameId
     const duration = 2600
@@ -101,80 +103,7 @@ function App() {
 
     frameId = window.requestAnimationFrame(animate)
     return () => window.cancelAnimationFrame(frameId)
-  }, [hasStartedIndicators, indicators])
-
-  useEffect(() => {
-    const video = heroVideoRef.current
-    if (!video) return undefined
-
-    let frameId = 0
-    let lastTimestamp = 0
-    let direction = 1
-    const edgeOffset = 0.02
-
-    const tick = (now) => {
-      const duration = video.duration
-      if (!duration || Number.isNaN(duration)) {
-        frameId = window.requestAnimationFrame(tick)
-        return
-      }
-
-      const delta = (now - lastTimestamp) / 1000
-      lastTimestamp = now
-
-      let nextTime = video.currentTime + delta * direction
-
-      if (nextTime >= duration - edgeOffset) {
-        nextTime = duration - edgeOffset
-        direction = -1
-      } else if (nextTime <= edgeOffset) {
-        nextTime = edgeOffset
-        direction = 1
-      }
-
-      video.currentTime = nextTime
-      frameId = window.requestAnimationFrame(tick)
-    }
-
-    const start = () => {
-      lastTimestamp = performance.now()
-      if (frameId) window.cancelAnimationFrame(frameId)
-      frameId = window.requestAnimationFrame(tick)
-    }
-
-    const handleLoadedMetadata = () => {
-      video.pause()
-      video.currentTime = edgeOffset
-      direction = 1
-      start()
-    }
-
-    const handleVisibilityChange = () => {
-      if (document.hidden) {
-        if (frameId) {
-          window.cancelAnimationFrame(frameId)
-          frameId = 0
-        }
-        return
-      }
-
-      start()
-    }
-
-    if (video.readyState >= 1) {
-      handleLoadedMetadata()
-    } else {
-      video.addEventListener('loadedmetadata', handleLoadedMetadata)
-    }
-
-    document.addEventListener('visibilitychange', handleVisibilityChange)
-
-    return () => {
-      video.removeEventListener('loadedmetadata', handleLoadedMetadata)
-      document.removeEventListener('visibilitychange', handleVisibilityChange)
-      if (frameId) window.cancelAnimationFrame(frameId)
-    }
-  }, [])
+  }, [hasStartedIndicators, indicators, reducedMotion])
 
   function openWhatsAppModal(event) {
     if (event) event.preventDefault()
@@ -302,11 +231,7 @@ function App() {
           </header>
 
           <section id="inicio" className="hero-section">
-            <div className="hero-video" aria-hidden="true">
-              <video ref={heroVideoRef} muted playsInline preload="metadata" poster="/assets/front-view-blurry-lawyer-working.jpg">
-                <source src="/assets/hero-background.mp4" type="video/mp4" />
-              </video>
-            </div>
+            <HeroBackground />
 
             <div className="container hero-layout">
               <div className="hero-copy fade-in-up">
@@ -363,7 +288,7 @@ function App() {
             <div className="container indicators-grid">
               {indicators.map((item, index) => (
                 <article className="indicator-card" key={`${item.label}-${index}`}>
-                  <p className="indicator-number">+{indicatorValues[index]}</p>
+                  <p className="indicator-number">+{reducedMotion ? item.value : indicatorValues[index]}</p>
                   <p className="indicator-label">{item.label}</p>
                 </article>
               ))}

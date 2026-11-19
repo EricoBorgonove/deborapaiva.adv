@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict'
-import { readFile } from 'node:fs/promises'
+import { readFile, readdir, stat } from 'node:fs/promises'
 import { test } from 'node:test'
 
 for (const [file, text] of [
@@ -18,3 +18,14 @@ for (const [file, text] of [
     assert.match(html, /rel="canonical" href="https:\/\//)
   })
 }
+
+test('hero stays below 1 MB and does not eagerly load video from static HTML', async () => {
+  const assetDir = new URL('../dist/assets/', import.meta.url)
+  const files = await readdir(assetDir)
+  const videos = files.filter((file) => file.endsWith('.mp4'))
+  assert.deepEqual(videos, ['hero-background-optimized.mp4'])
+  const video = await stat(new URL('hero-background-optimized.mp4', assetDir))
+  assert.ok(video.size < 1_000_000, `Hero video exceeds budget: ${video.size} bytes`)
+  const html = await readFile(new URL('../dist/index.html', import.meta.url), 'utf8')
+  assert.doesNotMatch(html, /<video[\s>]/)
+})

@@ -11,6 +11,12 @@ Os antigos endereços de sorteio e `/data/` retornam HTTP 410 no Nginx.
 
 Após o build, `npm run test:ssg` verifica o conteúdo e as metatags nos arquivos gerados.
 
+O hero usa imagem estática por padrão. O vídeo MP4 (H.264, 1280×720, 24 fps,
+sem áudio, cerca de 310 KB) só é carregado acima de 935 px e sem preferência por
+movimento reduzido. A reprodução usa loop nativo e pausa fora da tela ou em aba
+oculta. `prefers-reduced-motion` também desativa animações de entrada e contadores.
+O teste do build exige vídeo menor que 1 MB e ausência de vídeo no HTML inicial.
+
 O build também gera canonical, Open Graph e Twitter Card para as páginas públicas.
 A origem padrão é `https://deborapaiva.adv.br`; use `SITE_URL=https://seu-dominio npm run build`
 para outra origem. O Dockerfile já executa esse mesmo build; não é necessário Node no servidor final.
