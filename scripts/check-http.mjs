@@ -5,8 +5,11 @@ const base = process.env.BASE_URL || 'http://127.0.0.1:4180'
 const assets = await readdir('dist/assets')
 const hashed = assets.find((file) => /-[a-z0-9_-]{8}\.js$/i.test(file))
 const font = assets.find((file) => file.endsWith('.woff2'))
+const portrait = assets.find((file) => /^debora-sobre-[\w-]{8}\.jpeg$/.test(file))
+const video = assets.find((file) => /^hero-background-optimized-[\w-]{8}\.mp4$/.test(file))
 assert.ok(hashed, 'Built hashed bundle missing')
 assert.ok(font, 'Built local font missing')
+assert.ok(portrait && video, 'Content-hashed media missing')
 for (const [path, status, type, cache] of [
   ['/', 200, 'text/html', 'no-cache'],
   ['/blog', 200, 'text/html', 'no-cache'],
@@ -21,8 +24,11 @@ for (const [path, status, type, cache] of [
   ['/assets/missing.js', 404, 'text/html', 'no-store'],
   ['/data/participantes.json', 410, 'text/html', 'no-store'],
   ['/sorteio', 410, 'text/html', 'no-store'],
-  ['/assets/debora-sobre.jpeg', 200, 'image/jpeg', 'max-age=3600'],
-  ['/assets/hero-background-optimized.mp4', 200, 'video/mp4', 'max-age=3600'],
+  ['/assets/debora-sobre.jpeg', 404, 'text/html', 'no-store'],
+  ['/assets/hero-background-optimized.mp4', 404, 'text/html', 'no-store'],
+  ['/assets/logo-borgonove-tech.png', 200, 'image/png', 'max-age=3600'],
+  [`/assets/${portrait}`, 200, 'image/jpeg', 'immutable'],
+  [`/assets/${video}`, 200, 'video/mp4', 'immutable'],
   [`/assets/${hashed}`, 200, 'javascript', 'immutable'],
   [`/assets/${font}`, 200, 'font/woff2', 'immutable'],
 ]) {
@@ -37,31 +43,36 @@ for (const [path, status, type, cache] of [
   assert.ok(response.headers.get('content-security-policy').includes("style-src 'self';"), path)
   assert.ok(!response.headers.get('content-security-policy').includes('google'), path)
   console.log(`${path}: ${status}; headers and cache OK`)
+  await response.body?.cancel()
 }
 const secure = await fetch(base, { headers: { 'X-Forwarded-Proto': 'https' } })
 assert.equal(secure.headers.get('strict-transport-security'), 'max-age=31536000')
+await secure.body?.cancel()
 const html = await fetch(base)
+await html.body?.cancel()
 const revalidated = await fetch(base, { headers: { 'If-None-Match': html.headers.get('etag') } })
 assert.equal(revalidated.status, 304)
 assert.equal(revalidated.headers.get('x-content-type-options'), 'nosniff')
 console.log('HTTPS HSTS and conditional HTML revalidation: OK')
 
-for (const path of ['/assets/debora-sobre.jpeg', '/assets/hero-background-optimized.mp4']) {
+for (const path of ['/assets/logo-borgonove-tech.png', `/assets/${portrait}`, `/assets/${video}`]) {
+  const expectedCache = path === '/assets/logo-borgonove-tech.png'
+    ? 'public, max-age=3600, must-revalidate' : 'public, max-age=31536000, immutable'
   let etag
   for (const method of ['GET', 'HEAD']) {
     const response = await fetch(new URL(path, base), { method })
     assert.equal(response.status, 200, `${method} ${path}`)
-    assert.equal(response.headers.get('cache-control'), 'public, max-age=3600, must-revalidate', `${method} ${path}`)
+    assert.equal(response.headers.get('cache-control'), expectedCache, `${method} ${path}`)
     etag = response.headers.get('etag')
     assert.ok(etag, path)
     await response.body?.cancel()
   }
   const range = await fetch(new URL(path, base), { headers: { Range: 'bytes=0-31' } })
   assert.equal(range.status, 206, path)
-  assert.equal(range.headers.get('cache-control'), 'public, max-age=3600, must-revalidate', path)
+  assert.equal(range.headers.get('cache-control'), expectedCache, path)
   await range.body?.cancel()
   const unchanged = await fetch(new URL(path, base), { headers: { 'If-None-Match': etag } })
   assert.equal(unchanged.status, 304, path)
-  assert.equal(unchanged.headers.get('cache-control'), 'public, max-age=3600, must-revalidate', path)
-  console.log(`${path}: GET, HEAD, 206 and 304 enforce one-hour cache without immutable`)
+  assert.equal(unchanged.headers.get('cache-control'), expectedCache, path)
+  console.log(`${path}: GET, HEAD, 206 and 304 enforce ${expectedCache}`)
 }
