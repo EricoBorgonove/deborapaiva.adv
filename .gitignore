@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 site-deb-cpanel.zip
+*.zip
+*.bundle
+/public/data/
 
 # Editor directories and files
 .vscode/*

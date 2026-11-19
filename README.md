@@ -6,7 +6,8 @@
 em `dist/index.html`, `dist/blog.html` e `dist/privacy.html`. O React hidrata
 esse HTML no navegador para ativar menus, idiomas e formulários.
 O HTML inicial é em português; a preferência de idioma é aplicada após a hidratação.
-As ferramentas de sorteio continuam sendo renderizadas no navegador.
+As ferramentas de sorteio e suas bases de dados não fazem parte deste site público.
+Os antigos endereços de sorteio e `/data/` retornam HTTP 410 no Nginx.
 
 Após o build, `npm run test:ssg` verifica o conteúdo e as metatags nos arquivos gerados.
 

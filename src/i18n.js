@@ -273,7 +273,7 @@ export const translations = {
         {
           title: '5. Cookies E Tecnologias Semelhantes',
           items: [
-            'Utilizamos armazenamento local para lembrar o idioma e a confirmação do aviso de privacidade. As ferramentas de sorteio também armazenam informações de funcionamento no navegador.',
+            'Utilizamos armazenamento local para lembrar o idioma e a confirmação do aviso de privacidade.',
             'Não utilizamos cookies de análise ou publicidade. Você pode apagar os dados do site nas configurações do navegador para redefinir as preferências.',
             'Ao continuar navegando e aceitar o aviso, você concorda com esse uso nos termos deste aviso.',
           ],
@@ -530,7 +530,7 @@ export const translations = {
         {
           title: '5. Cookies and Similar Technologies',
           items: [
-            'We use local storage to remember language and acknowledgment of the privacy notice. Drawing tools also store operational information in the browser.',
+            'We use local storage to remember language and acknowledgment of the privacy notice.',
             'We do not use analytics or advertising cookies. You can clear site data in your browser settings to reset preferences.',
             'By continuing to browse and accepting the notice, you agree to this use under these terms.',
           ],
@@ -795,7 +795,7 @@ translations.es = {
       {
         title: '5. Cookies y Tecnologías Similares',
         items: [
-          'Usamos almacenamiento local para recordar el idioma y la confirmación del aviso de privacidad. Las herramientas de sorteo también guardan información de funcionamiento en el navegador.',
+          'Usamos almacenamiento local para recordar el idioma y la confirmación del aviso de privacidad.',
           'No utilizamos cookies de análisis ni publicidad. Puedes borrar los datos del sitio en la configuración del navegador para restablecer las preferencias.',
           'Al continuar navegando y aceptar el aviso, aceptas este uso conforme a estos términos.',
         ],
@@ -1061,7 +1061,7 @@ translations.fr = {
       {
         title: '5. Cookies Et Technologies Similaires',
         items: [
-          'Nous utilisons le stockage local pour mémoriser la langue et la confirmation de cet avis. Les outils de tirage au sort enregistrent aussi des informations de fonctionnement dans le navigateur.',
+          'Nous utilisons le stockage local pour mémoriser la langue et la confirmation de cet avis.',
           'Nous ne recourons pas aux cookies d’analyse ou de publicité. Vous pouvez effacer les données du site dans les paramètres du navigateur pour réinitialiser les préférences.',
           'En poursuivant votre navigation et en acceptant l’avis, vous acceptez cette utilisation dans les conditions prévues par le présent avis.',
         ],
