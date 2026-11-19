@@ -3,10 +3,12 @@
 ## HTML estático de produção
 
 `npm run build` compila o cliente e pré-renderiza início, blog e privacidade
-em `dist/index.html`, `dist/blog.html` e `dist/privacy.html`. O React hidrata
-esse HTML no navegador para ativar menus, idiomas e formulários.
-As páginas públicas são somente em português, inclusive após a hidratação.
-Não há versões EN/ES/FR publicadas; por isso não há hreflang para URLs inexistentes.
+em 12 arquivos HTML: início, blog e privacidade em português, inglês, espanhol
+e francês. O React hidrata esse HTML no navegador para ativar menus e formulários.
+O idioma vem da URL, sem redirecionamento por navegador ou armazenamento local.
+Português usa `/`, inglês `/en/`, espanhol `/es/` e francês `/fr/`.
+Blog e privacidade mantêm seus nomes dentro de cada prefixo, como `/en/blog.html`.
+Os seletores são links que preservam a página atual ao trocar de idioma.
 As ferramentas de sorteio e suas bases de dados não fazem parte deste site público.
 Os antigos endereços de sorteio e `/data/` retornam HTTP 410 no Nginx.
 
@@ -18,18 +20,24 @@ movimento reduzido. A reprodução usa loop nativo e pausa fora da tela ou em ab
 oculta. `prefers-reduced-motion` também desativa animações de entrada e contadores.
 O teste do build exige vídeo menor que 1 MB e ausência de vídeo no HTML inicial.
 
-O build também gera canonical, Open Graph e Twitter Card para as páginas públicas.
+O build também gera canonical próprio, Open Graph, Twitter Card e hreflang
+recíproco (pt-BR/en/es/fr e x-default apontando ao português) para cada página.
+O sitemap inclui as 12 URLs canônicas. `src/siteRoutes.js` centraliza as rotas.
+`npm run dev` aceita as URLs localizadas; para conferir o HTML estático use
+`npm run build && npm run preview`.
 A origem padrão é `https://deborapaiva.adv.br`; use `SITE_URL=https://seu-dominio npm run build`
 para outra origem. O Dockerfile já executa esse mesmo build; não é necessário Node no servidor final.
 
 ## SEO local e entrega HTTP
 
-O JSON-LD descreve LegalService e WebSite com telefone e área atendida (Manaus).
+O JSON-LD descreve LegalService e WebSite com telefone e área atendida (Manaus),
+além de WebPage com o idioma e a URL da versão correspondente.
 O atendimento é somente com hora marcada. Endereço físico e horários fixos foram
 omitidos por decisão da proprietária; o schema não promete elegibilidade a rich results.
 
-`public/robots.txt` e `public/sitemap.xml` são copiados para o build, com a origem
-ajustada por `SITE_URL`. O Nginx devolve 404 para caminhos inexistentes e 410 para
+`public/robots.txt` é copiado para o build; o sitemap é gerado a partir das rotas,
+com a origem ajustada por `SITE_URL`. A cópia em `public/sitemap.xml` documenta
+as URLs padrão. O Nginx devolve 404 para caminhos inexistentes e 410 para
 os antigos caminhos de sorteio. Não há fallback universal para a home.
 
 O HTML usa `no-cache`; fotos e logos sem hash usam cache de uma hora com revalidação.
