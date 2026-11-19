@@ -42,14 +42,27 @@ os antigos caminhos de sorteio. Não há fallback universal para a home.
 
 O HTML usa `no-cache`; fotos e logos sem hash usam cache de uma hora com revalidação.
 Somente JS/CSS com hash usam `immutable` por um ano. Erros usam `no-store`.
-Os cabeçalhos de segurança são aplicados também a erros. A CSP permite fontes Google
-e recursos locais. O proxy TLS deve sobrescrever `X-Forwarded-Proto`, manter o
+Os cabeçalhos de segurança são aplicados também a erros. A CSP permite fontes e
+estilos somente da própria origem. O proxy TLS deve sobrescrever `X-Forwarded-Proto`, manter o
 contêiner privado e redirecionar HTTP para HTTPS; o HSTS depende desse sinal confiável.
 
 Após `docker build -t site-deb:check .`, execute um contêiner na porta local 4180
 e rode `node scripts/check-http.mjs`. Use `BASE_URL` para outra instância.
 O resultado de `node scripts/audit-history.mjs` permanece não zero enquanto o GitHub
 servir o commit antigo. O pedido ao suporte está em `docs/github-support-request.md`.
+
+## Fonte local
+
+A Manrope variável é empacotada em `src/assets/fonts/manrope-variable.woff2`.
+O arquivo contém os pesos 200–800 e os caracteres da distribuição original,
+incluindo os acentos usados em português, inglês, espanhol e francês.
+O Vite gera um nome com hash e o Nginx usa cache imutável para esse arquivo.
+`font-display: swap` mantém o texto visível durante o carregamento.
+
+Origem: https://github.com/google/fonts/tree/main/ofl/manrope
+O TTF original foi comprimido em WOFF2 com FontTools, sem subsetting.
+A licença SIL OFL 1.1 está incluída em `public/licenses/manrope-OFL.txt`.
+O navegador não depende da API ou do CDN do Google Fonts para carregar a fonte.
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
