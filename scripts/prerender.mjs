@@ -5,6 +5,11 @@ import { build } from 'vite'
 
 const output = await mkdtemp(join('node_modules', '.site-deb-ssg-'))
 const siteUrl = new URL(process.env.SITE_URL || 'https://deborapaiva.adv.br')
+for (const file of ['robots.txt', 'sitemap.xml']) {
+  const path = join('dist', file)
+  const content = await readFile(path, 'utf8')
+  await writeFile(path, content.replaceAll('https://deborapaiva.adv.br', siteUrl.origin))
+}
 try {
   await build({
     build: {

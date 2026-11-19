@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build && node scripts/prerender.mjs",
     "lint": "eslint .",
-    "test:ssg": "node --test scripts/prerender.test.mjs",
+    "test:ssg": "node --test scripts/*.test.mjs",
     "preview": "vite preview"
   },
   "dependencies": {
