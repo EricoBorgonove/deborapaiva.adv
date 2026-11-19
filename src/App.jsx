@@ -1,3 +1,5 @@
+import LanguageLinks from './LanguageLinks.jsx'
+import { locationLabel } from './siteRoutes.js'
 import { business } from './business.js'
 import { useEffect, useRef, useState } from 'react'
 import './App.css'
@@ -11,8 +13,7 @@ const contact = business
 
 const whatsappBaseLink = `https://wa.me/${contact.whatsappNumber}`
 
-function App() {
-  const language = 'pt'
+function App({ language = 'pt' }) {
   const [isWhatsAppModalOpen, setIsWhatsAppModalOpen] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isNavCollapsed, setIsNavCollapsed] = useState(false)
@@ -25,10 +26,6 @@ function App() {
 
   const indicatorsRef = useRef(null)
   const reducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)', true)
-
-  useEffect(() => {
-    document.documentElement.lang = 'pt-BR'
-  }, [language])
 
   useEffect(() => {
     if (hasStartedIndicators) return
@@ -148,6 +145,7 @@ function App() {
                   <button type="button" className="nav-text-link nav-text-link-disabled" aria-disabled="true" disabled>
                     {common.nav.enter}
                   </button>
+                  <LanguageLinks language={language} file="index.html" label={common.nav.languageAria} />
                   <a
                     className="button button-small nav-cta"
                     href={whatsappBaseLink}
@@ -174,6 +172,7 @@ function App() {
                     {common.nav.blog}
                   </a>
                   <span className="mobile-menu-disabled">{common.nav.enter}</span>
+                  <LanguageLinks language={language} file="index.html" label={common.nav.languageAria} mobile />
                   <a className="button button-small" href={whatsappBaseLink} target="_blank" rel="noreferrer" onClick={openWhatsAppModal}>
                     {common.nav.contact}
                   </a>
@@ -363,7 +362,7 @@ function App() {
                       d="M12 2a7 7 0 0 1 7 7c0 4.6-5.3 10.8-6.4 12a.8.8 0 0 1-1.2 0C10.3 19.8 5 13.6 5 9a7 7 0 0 1 7-7Zm0 2a5 5 0 0 0-5 5c0 2.9 3 7.1 5 9.6 2-2.5 5-6.7 5-9.6a5 5 0 0 0-5-5Zm0 2.5A2.5 2.5 0 1 1 9.5 9 2.5 2.5 0 0 1 12 6.5Z"
                     />
                   </svg>
-                  <span>{contact.cityDisplay}</span>
+                  <span>{locationLabel(language)}</span>
                 </span>
                 <a
                   className="footer-contact-item footer-insta-link"

@@ -1,6 +1,7 @@
 import { business } from '../src/business.js'
+import { languages, localeTags, pagePath } from '../src/siteRoutes.js'
 
-export function structuredData(origin) {
+export function structuredData(origin, language = 'pt', file = 'index.html') {
   const url = new URL('/', origin).href
   return {
     '@context': 'https://schema.org',
@@ -28,8 +29,15 @@ export function structuredData(origin) {
         '@id': `${url}#website`,
         url,
         name: business.name,
-        inLanguage: 'pt-BR',
+        inLanguage: languages.map((code) => localeTags[code]),
         publisher: { '@id': `${url}#escritorio` },
+      },
+      {
+        '@type': 'WebPage',
+        '@id': new URL(pagePath(language, file), url).href,
+        url: new URL(pagePath(language, file), url).href,
+        inLanguage: localeTags[language],
+        isPartOf: { '@id': `${url}#website` },
       },
     ],
   }

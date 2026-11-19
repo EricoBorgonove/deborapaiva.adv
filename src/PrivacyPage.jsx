@@ -1,5 +1,7 @@
+import LanguageLinks from './LanguageLinks.jsx'
+import { locationLabel } from './siteRoutes.js'
 import { business } from './business.js'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import './App.css'
 import PrivacyBanner from './PrivacyBanner.jsx'
 import WhatsAppModal from './WhatsAppModal.jsx'
@@ -9,18 +11,13 @@ const footerContact = business
 
 const whatsappBaseLink = `https://wa.me/${footerContact.whatsappNumber}`
 
-function PrivacyPage() {
-  const language = 'pt'
+function PrivacyPage({ language = 'pt' }) {
   const [isWhatsAppModalOpen, setIsWhatsAppModalOpen] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isNavCollapsed, setIsNavCollapsed] = useState(false)
 
   const t = translations[language]
   const { common, privacy } = t
-
-  useEffect(() => {
-    document.documentElement.lang = 'pt-BR'
-  }, [language])
 
   function openWhatsAppModal(event) {
     if (event) event.preventDefault()
@@ -92,6 +89,7 @@ function PrivacyPage() {
               <button type="button" className="nav-text-link nav-text-link-disabled" aria-disabled="true" disabled>
                 {common.nav.enter}
               </button>
+                  <LanguageLinks language={language} file="privacy.html" label={common.nav.languageAria} />
               <a className="button button-small nav-cta" href="./index.html#inicio">
                 {common.nav.backToSite} <span className="cta-arrow">→</span>
               </a>
@@ -111,6 +109,7 @@ function PrivacyPage() {
                 {common.nav.blog}
               </a>
               <span className="mobile-menu-disabled">{common.nav.enter}</span>
+                  <LanguageLinks language={language} file="privacy.html" label={common.nav.languageAria} mobile />
               <a className="button button-small" href="./index.html#inicio" onClick={closeMobileMenu}>
                 {common.nav.backToSite}
               </a>
@@ -183,7 +182,7 @@ function PrivacyPage() {
                       d="M12 2a7 7 0 0 1 7 7c0 4.6-5.3 10.8-6.4 12a.8.8 0 0 1-1.2 0C10.3 19.8 5 13.6 5 9a7 7 0 0 1 7-7Zm0 2a5 5 0 0 0-5 5c0 2.9 3 7.1 5 9.6 2-2.5 5-6.7 5-9.6a5 5 0 0 0-5-5Zm0 2.5A2.5 2.5 0 1 1 9.5 9 2.5 2.5 0 0 1 12 6.5Z"
                     />
                   </svg>
-                  <span>{footerContact.cityDisplay}</span>
+                  <span>{locationLabel(language)}</span>
                 </span>
                 <a
                   className="footer-contact-item footer-insta-link"
