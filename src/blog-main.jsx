@@ -1,10 +1,5 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
+import { mountPage } from './mountPage.jsx'
 import './index.css'
 import BlogPage from './BlogPage.jsx'
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <BlogPage />
-  </StrictMode>,
-)
+mountPage(BlogPage)

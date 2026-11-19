@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import PrivacyBanner from './PrivacyBanner.jsx'
 import WhatsAppModal from './WhatsAppModal.jsx'
-import { buildWhatsAppMessage, getInitialLanguage, saveLanguage, translations } from './i18n.js'
+import { buildWhatsAppMessage, translations } from './i18n.js'
+import { useLanguage } from './useLanguage.js'
 
 const footerContact = {
   whatsappNumber: '5592984442917',
@@ -38,7 +39,7 @@ function LanguageToggle({ language, onSelect, ariaLabel, className = '' }) {
 }
 
 function BlogPage() {
-  const [language, setLanguage] = useState(getInitialLanguage)
+  const [language, setLanguage] = useLanguage()
   const [isWhatsAppModalOpen, setIsWhatsAppModalOpen] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isNavCollapsed, setIsNavCollapsed] = useState(false)
@@ -47,7 +48,6 @@ function BlogPage() {
   const { common, blog } = t
 
   useEffect(() => {
-    saveLanguage(language)
     document.documentElement.lang = language === 'en' ? 'en' : language === 'es' ? 'es' : language === 'fr' ? 'fr' : 'pt-BR'
   }, [language])
 

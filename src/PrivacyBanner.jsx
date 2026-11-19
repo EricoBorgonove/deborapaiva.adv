@@ -1,6 +1,19 @@
-import { useState } from 'react'
+import { useSyncExternalStore } from 'react'
 
 const CONSENT_KEY = 'debora_privacy_consent'
+
+function subscribe(callback) {
+  window.addEventListener('storage', callback)
+  window.addEventListener('privacy-notice-change', callback)
+  return () => {
+    window.removeEventListener('storage', callback)
+    window.removeEventListener('privacy-notice-change', callback)
+  }
+}
+
+function getVisible() {
+  return window.localStorage.getItem(CONSENT_KEY) !== 'accepted'
+}
 
 const defaultLabels = {
   ariaLabel: 'Aviso de privacidade',
@@ -12,14 +25,11 @@ const defaultLabels = {
 }
 
 function PrivacyBanner({ labels = defaultLabels }) {
-  const [visible, setVisible] = useState(() => {
-    if (typeof window === 'undefined') return false
-    return window.localStorage.getItem(CONSENT_KEY) !== 'accepted'
-  })
+  const visible = useSyncExternalStore(subscribe, getVisible, () => false)
 
   function handleAccept() {
     window.localStorage.setItem(CONSENT_KEY, 'accepted')
-    setVisible(false)
+    window.dispatchEvent(new Event('privacy-notice-change'))
   }
 
   if (!visible) return null

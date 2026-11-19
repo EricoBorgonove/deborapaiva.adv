@@ -1,5 +1,19 @@
 # React + Vite
 
+## HTML estático de produção
+
+`npm run build` compila o cliente e pré-renderiza início, blog e privacidade
+em `dist/index.html`, `dist/blog.html` e `dist/privacy.html`. O React hidrata
+esse HTML no navegador para ativar menus, idiomas e formulários.
+O HTML inicial é em português; a preferência de idioma é aplicada após a hidratação.
+As ferramentas de sorteio continuam sendo renderizadas no navegador.
+
+Após o build, `npm run test:ssg` verifica o conteúdo e as metatags nos arquivos gerados.
+
+O build também gera canonical, Open Graph e Twitter Card para as páginas públicas.
+A origem padrão é `https://deborapaiva.adv.br`; use `SITE_URL=https://seu-dominio npm run build`
+para outra origem. O Dockerfile já executa esse mesmo build; não é necessário Node no servidor final.
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
