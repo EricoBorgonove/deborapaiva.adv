@@ -5,10 +5,10 @@ const CONSENT_KEY = 'debora_privacy_consent'
 const defaultLabels = {
   ariaLabel: 'Aviso de privacidade',
   textBeforeLink:
-    'A Débora Paiva Advocacia usa cookies e tecnologias semelhantes para melhorar sua experiência. Ao continuar, você concorda com esse uso. Leia nosso',
+    'Este site armazena preferências no seu navegador, como o idioma e a confirmação deste aviso. Não utilizamos cookies de análise ou publicidade. Saiba mais no',
   linkLabel: 'Aviso de Privacidade',
   textAfterLink: '.',
-  accept: 'Aceitar',
+  accept: 'Entendi',
 }
 
 function PrivacyBanner({ labels = defaultLabels }) {

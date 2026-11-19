@@ -76,10 +76,10 @@ export const translations = {
       privacyBanner: {
         ariaLabel: 'Aviso de privacidade',
         textBeforeLink:
-          'A Débora Paiva Advocacia usa cookies e tecnologias semelhantes para melhorar sua experiência. Ao continuar, você concorda com esse uso. Leia nosso',
+          'Este site armazena preferências no seu navegador, como o idioma e a confirmação deste aviso. Não utilizamos cookies de análise ou publicidade. Saiba mais no',
         linkLabel: 'Aviso de Privacidade',
         textAfterLink: '.',
-        accept: 'Aceitar',
+        accept: 'Entendi',
       },
       whatsappModal: {
         title: 'Antes de continuar',
@@ -96,7 +96,7 @@ export const translations = {
       navContactAria: 'Abrir contato no WhatsApp',
       heroEyebrow: 'ADVOCACIA ESTRATÉGICA',
       heroTitle: 'Atendimento humanizado e firme na defesa dos seus direitos.',
-      heroText: 'Atuação em Direito de Familia e Civil. Atendimento transparente, firme e humanizado e com total confidencialidade.',
+      heroText: 'Atuação em Direito de Família e Civil. Atendimento transparente, firme e humanizado, com total confidencialidade.',
       heroPrimaryCta: 'Agendar consulta',
       heroSecondaryCta: 'Conhecer áreas',
       panelEyebrow: 'Atendimento inicial',
@@ -109,7 +109,7 @@ export const translations = {
         'Ao longo da minha trajetória, construí uma prática orientada por responsabilidade, discrição e resultado, sempre buscando soluções jurídicas seguras para cada etapa do seu caso.',
       ],
       aboutTopics: ['Palestrante', 'Professora e Coordenadora de Direito', 'Especialista em Direito de Família'],
-      aboutPhotoAlt: 'Retrato profissional de advogada',
+      aboutPhotoAlt: 'Dra. Débora Paiva, advogada com atuação em Direito de Família em Manaus',
       indicators: [
         { value: 5, label: 'anos de experiência' },
         { value: 200, label: 'ações' },
@@ -177,7 +177,7 @@ export const translations = {
       ],
       faqEyebrow: 'Perguntas frequentes',
       faqTitle: 'Informação clara para você agir com segurança.',
-      faqImageAlt: 'Atendimento jurídico',
+      faqImageAlt: 'Dra. Débora Paiva segurando uma estatueta da Justiça',
       faqItems: [
         {
           question: 'Vocês atendem online?',
@@ -242,7 +242,7 @@ export const translations = {
           items: [
             'Dados informados por você em formulários, como nome, e-mail e mensagem.',
             'Dados técnicos de navegação, como endereço IP, navegador, dispositivo e páginas acessadas.',
-            'Dados de uso gerados por cookies e tecnologias semelhantes.',
+            'Preferências de idioma e confirmação do aviso armazenadas no navegador.',
           ],
         },
         {
@@ -273,8 +273,8 @@ export const translations = {
         {
           title: '5. Cookies E Tecnologias Semelhantes',
           items: [
-            'Utilizamos cookies para lembrar preferências, medir desempenho e otimizar serviços.',
-            'Você pode gerenciar cookies no navegador, ciente de que isso pode afetar funcionalidades.',
+            'Utilizamos armazenamento local para lembrar o idioma e a confirmação do aviso de privacidade. As ferramentas de sorteio também armazenam informações de funcionamento no navegador.',
+            'Não utilizamos cookies de análise ou publicidade. Você pode apagar os dados do site nas configurações do navegador para redefinir as preferências.',
             'Ao continuar navegando e aceitar o aviso, você concorda com esse uso nos termos deste aviso.',
           ],
         },
@@ -333,10 +333,10 @@ export const translations = {
       privacyBanner: {
         ariaLabel: 'Privacy notice',
         textBeforeLink:
-          'Debora Paiva Law Firm uses cookies and similar technologies to improve your experience. By continuing, you agree to this use. Read our',
+          'This site stores preferences in your browser, such as language and acknowledgment of this notice. We do not use analytics or advertising cookies. Read our',
         linkLabel: 'Privacy Notice',
         textAfterLink: '.',
-        accept: 'Accept',
+        accept: 'Got it',
       },
       whatsappModal: {
         title: 'Before continuing',
@@ -366,7 +366,7 @@ export const translations = {
         'Throughout my career, I have built a practice guided by responsibility, discretion and results, always seeking reliable legal solutions for each stage of your case.',
       ],
       aboutTopics: ['Speaker', 'Law Professor and Coordinator', 'Family Law Specialist'],
-      aboutPhotoAlt: 'Professional portrait of attorney',
+      aboutPhotoAlt: 'Débora Paiva, an attorney practicing family law in Manaus',
       indicators: [
         { value: 5, label: 'years of experience' },
         { value: 200, label: 'cases' },
@@ -434,7 +434,7 @@ export const translations = {
       ],
       faqEyebrow: 'Frequently asked questions',
       faqTitle: 'Clear information so you can act with confidence.',
-      faqImageAlt: 'Legal service',
+      faqImageAlt: 'Débora Paiva holding a Lady Justice statuette',
       faqItems: [
         {
           question: 'Do you provide online consultations?',
@@ -499,7 +499,7 @@ export const translations = {
           items: [
             'Data provided by you in forms, such as name, email and message.',
             'Technical browsing data, such as IP address, browser, device and accessed pages.',
-            'Usage data generated by cookies and similar technologies.',
+            'Language preferences and notice acknowledgment stored in the browser.',
           ],
         },
         {
@@ -530,8 +530,8 @@ export const translations = {
         {
           title: '5. Cookies and Similar Technologies',
           items: [
-            'We use cookies to remember preferences, measure performance and optimize services.',
-            'You can manage cookies in your browser, knowing this may affect certain features.',
+            'We use local storage to remember language and acknowledgment of the privacy notice. Drawing tools also store operational information in the browser.',
+            'We do not use analytics or advertising cookies. You can clear site data in your browser settings to reset preferences.',
             'By continuing to browse and accepting the notice, you agree to this use under these terms.',
           ],
         },
@@ -596,9 +596,9 @@ translations.es = {
       ...translations.en.common.privacyBanner,
       ariaLabel: 'Aviso de privacidad',
       textBeforeLink:
-        'Débora Paiva Abogada utiliza cookies y tecnologías similares para mejorar tu experiencia. Al continuar, aceptas este uso. Lee nuestro',
+        'Este sitio guarda preferencias en tu navegador, como el idioma y la confirmación de este aviso. No utilizamos cookies de análisis ni publicidad. Lee nuestro',
       linkLabel: 'Aviso de Privacidad',
-      accept: 'Aceptar',
+      accept: 'Entendido',
     },
     whatsappModal: {
       ...translations.en.common.whatsappModal,
@@ -630,7 +630,7 @@ translations.es = {
       'A lo largo de mi trayectoria, construí una práctica guiada por responsabilidad, discreción y resultado, buscando siempre soluciones jurídicas seguras para cada etapa de tu caso.',
     ],
     aboutTopics: ['Conferencista', 'Profesora y Coordinadora de Derecho', 'Especialista en Derecho de Familia'],
-    aboutPhotoAlt: 'Retrato profesional de abogada',
+    aboutPhotoAlt: 'Débora Paiva, abogada que ejerce el Derecho de Familia en Manaus',
     indicators: [
       { value: 5, label: 'años de experiencia' },
       { value: 200, label: 'acciones' },
@@ -698,7 +698,7 @@ translations.es = {
     ],
     faqEyebrow: 'Preguntas frecuentes',
     faqTitle: 'Información clara para que actúes con seguridad.',
-    faqImageAlt: 'Atención jurídica',
+    faqImageAlt: 'Débora Paiva sosteniendo una estatuilla de la Justicia',
     faqItems: [
       {
         question: '¿Atienden en línea?',
@@ -764,7 +764,7 @@ translations.es = {
         items: [
           'Datos informados por ti en formularios, como nombre, correo y mensaje.',
           'Datos técnicos de navegación, como dirección IP, navegador, dispositivo y páginas visitadas.',
-          'Datos de uso generados por cookies y tecnologías similares.',
+          'Preferencias de idioma y confirmación del aviso guardadas en el navegador.',
         ],
       },
       {
@@ -795,8 +795,8 @@ translations.es = {
       {
         title: '5. Cookies y Tecnologías Similares',
         items: [
-          'Usamos cookies para recordar preferencias, medir desempeño y optimizar servicios.',
-          'Puedes gestionar cookies en tu navegador, sabiendo que esto puede afectar funcionalidades.',
+          'Usamos almacenamiento local para recordar el idioma y la confirmación del aviso de privacidad. Las herramientas de sorteo también guardan información de funcionamiento en el navegador.',
+          'No utilizamos cookies de análisis ni publicidad. Puedes borrar los datos del sitio en la configuración del navegador para restablecer las preferencias.',
           'Al continuar navegando y aceptar el aviso, aceptas este uso conforme a estos términos.',
         ],
       },
@@ -860,9 +860,9 @@ translations.fr = {
       ...translations.en.common.privacyBanner,
       ariaLabel: 'Avis de confidentialité',
       textBeforeLink:
-        "Le cabinet Debora Paiva utilise des cookies et des technologies similaires pour améliorer votre expérience. En poursuivant votre navigation, vous acceptez cette utilisation. Consultez notre",
+        "Ce site enregistre vos préférences dans le navigateur, comme la langue et la confirmation de cet avis. Nous ne recourons pas aux cookies d’analyse ou de publicité. Consultez notre",
       linkLabel: 'Avis de confidentialité',
-      accept: 'Accepter',
+      accept: 'Compris',
     },
     whatsappModal: {
       ...translations.en.common.whatsappModal,
@@ -895,7 +895,7 @@ translations.fr = {
       'Tout au long de mon parcours, j’ai construit une pratique guidée par la responsabilité, la discrétion et les résultats, en recherchant toujours des solutions juridiques sûres à chaque étape de votre dossier.',
     ],
     aboutTopics: ['Conférencière', 'Professeure et coordinatrice en droit', 'Spécialiste en droit de la famille'],
-    aboutPhotoAlt: 'Portrait professionnel d’avocate',
+    aboutPhotoAlt: 'Débora Paiva, avocate exerçant en droit de la famille à Manaus',
     indicators: [
       { value: 5, label: "ans d'expérience" },
       { value: 200, label: 'actions' },
@@ -963,7 +963,7 @@ translations.fr = {
     ],
     faqEyebrow: 'Questions fréquentes',
     faqTitle: 'Des informations claires pour agir en toute sécurité.',
-    faqImageAlt: 'Accompagnement juridique',
+    faqImageAlt: 'Débora Paiva tenant une statuette de la Justice',
     faqItems: [
       {
         question: 'Proposez-vous des consultations en ligne ?',
@@ -1030,7 +1030,7 @@ translations.fr = {
         items: [
           'Les données fournies par vous dans les formulaires, telles que le nom, l’e-mail et le message.',
           'Les données techniques de navigation, telles que l’adresse IP, le navigateur, l’appareil et les pages consultées.',
-          'Les données d’utilisation générées par les cookies et technologies similaires.',
+          'Les préférences de langue et la confirmation de cet avis enregistrées dans le navigateur.',
         ],
       },
       {
@@ -1061,8 +1061,8 @@ translations.fr = {
       {
         title: '5. Cookies Et Technologies Similaires',
         items: [
-          'Nous utilisons des cookies pour mémoriser les préférences, mesurer les performances et optimiser les services.',
-          'Vous pouvez gérer les cookies dans votre navigateur, en sachant que cela peut affecter certaines fonctionnalités.',
+          'Nous utilisons le stockage local pour mémoriser la langue et la confirmation de cet avis. Les outils de tirage au sort enregistrent aussi des informations de fonctionnement dans le navigateur.',
+          'Nous ne recourons pas aux cookies d’analyse ou de publicité. Vous pouvez effacer les données du site dans les paramètres du navigateur pour réinitialiser les préférences.',
           'En poursuivant votre navigation et en acceptant l’avis, vous acceptez cette utilisation dans les conditions prévues par le présent avis.',
         ],
       },
