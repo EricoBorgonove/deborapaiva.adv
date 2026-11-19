@@ -24,7 +24,7 @@ try {
       rollupOptions: { input: 'src/prerender.jsx' },
     },
   })
-  const { renderPages } = await import(pathToFileURL(join(output, 'prerender.js')))
+  const { renderPages, media } = await import(pathToFileURL(join(output, 'prerender.js')))
   for (const [entry, content] of Object.entries(renderPages())) {
     const parts = entry.split('/')
     const language = parts.length === 1 ? 'pt' : parts[0]
@@ -36,12 +36,12 @@ try {
     const description = file === 'index.html' ? t.home.heroText :
       file === 'blog.html' ? t.blog.title : t.privacy.intro
     const url = new URL(pagePath(language, file), siteUrl).href
-    const image = new URL('/assets/debora-sobre.jpeg', siteUrl).href
+    const image = new URL(media.portrait, siteUrl).href
     template = template.replace('<html lang="pt-BR">', '<html lang="' + localeTags[language] + '">')
       .replace(/<title>.*?<\/title>/s, () => '<title>' + escape(title) + '</title>')
       .replace(/(<meta\s+name="description"\s+content=")[^"]*(")/s, (_, start, end) => start + escape(description) + end)
     const tags = [
-      '<script type="application/ld+json">' + JSON.stringify(structuredData(siteUrl, language, file)).replaceAll('<', '\\u003c') + '</script>',
+      '<script type="application/ld+json">' + JSON.stringify(structuredData(siteUrl, language, file, media.portrait)).replaceAll('<', '\\u003c') + '</script>',
       '<link rel="canonical" href="' + escape(url) + '" />',
       ...languages.map((code) => '<link rel="alternate" hreflang="' + localeTags[code] + '" href="' + escape(new URL(pagePath(code, file), siteUrl).href) + '" />'),
       '<link rel="alternate" hreflang="x-default" href="' + escape(new URL(pagePath('pt', file), siteUrl).href) + '" />',

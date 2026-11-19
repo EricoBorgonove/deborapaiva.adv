@@ -3,6 +3,7 @@ import App from './App.jsx'
 import BlogPage from './BlogPage.jsx'
 import PrivacyPage from './PrivacyPage.jsx'
 import { languages, outputFile } from './siteRoutes.js'
+export { media } from './media.js'
 
 export function renderPages() {
   const pages = {}

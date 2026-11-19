@@ -1,3 +1,4 @@
+import { media } from './media.js'
 import { business } from './business.js'
 const footerContact = business
 
@@ -8,7 +9,7 @@ function InternalSiteFooter() {
         <div className="container">
           <div className="footer-right">
             <a className="footer-brand-link" href="/" aria-label="Débora Paiva Advocacia">
-              <img src="/assets/logo-debora-paiva.png" alt="Débora Paiva Advocacia" />
+              <img src={media.footerLogo} alt="Débora Paiva Advocacia" />
             </a>
             <span className="logo-oab logo-oab-footer footer-oab-center">OAB/AM 17.317</span>
             <div className="footer-contact-group">

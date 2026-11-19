@@ -1,3 +1,4 @@
+import { media } from './media.js'
 import LanguageLinks from './LanguageLinks.jsx'
 import { locationLabel } from './siteRoutes.js'
 import { business } from './business.js'
@@ -138,7 +139,7 @@ function App({ language = 'pt' }) {
                 </nav>
 
                 <a href="#inicio" className="brand brand-center" aria-label={common.nav.homeAria}>
-                  <img src="/assets/Logotipo-deb-fundo-claro.png" alt={common.brandAlt} />
+                  <img src={media.headerLogo} alt={common.brandAlt} />
                 </a>
 
                 <div className="nav-group nav-right">
@@ -220,7 +221,7 @@ function App({ language = 'pt' }) {
           <section id="sobre" className="section-block about-block">
             <div className="container about-layout">
               <figure className="about-photo fade-in-up">
-                <img src="/assets/debora-sobre.jpeg" alt={home.aboutPhotoAlt} loading="lazy" />
+                <img src={media.portrait} alt={home.aboutPhotoAlt} loading="lazy" />
               </figure>
 
               <div className="about-copy fade-in-up delay-1">
@@ -321,7 +322,7 @@ function App({ language = 'pt' }) {
               </div>
 
               <figure className="faq-image fade-in-up delay-2">
-                <img src="/assets/faq-lateral.jpeg" alt={home.faqImageAlt} loading="lazy" />
+                <img src={media.faq} alt={home.faqImageAlt} loading="lazy" />
               </figure>
             </div>
           </section>
@@ -332,7 +333,7 @@ function App({ language = 'pt' }) {
         <div className="container">
           <div className="footer-right">
             <a className="footer-brand-link" href="#inicio" aria-label={common.brandAlt}>
-              <img src="/assets/logo-debora-paiva.png" alt={common.brandAlt} />
+              <img src={media.footerLogo} alt={common.brandAlt} />
             </a>
             <span className="logo-oab logo-oab-footer footer-oab-center">OAB/AM 17.317</span>
             <div className="footer-contact-group">

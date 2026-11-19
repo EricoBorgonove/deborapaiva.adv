@@ -1,3 +1,4 @@
+import { media } from './media.js'
 import LanguageLinks from './LanguageLinks.jsx'
 import { locationLabel } from './siteRoutes.js'
 import { business } from './business.js'
@@ -82,7 +83,7 @@ function PrivacyPage({ language = 'pt' }) {
             </nav>
 
             <a href="./index.html#inicio" className="brand brand-center" aria-label={common.nav.homeAria}>
-              <img src="/assets/Logotipo-deb-fundo-claro.png" alt={common.brandAlt} />
+              <img src={media.headerLogo} alt={common.brandAlt} />
             </a>
 
             <div className="nav-group nav-right">
@@ -152,7 +153,7 @@ function PrivacyPage({ language = 'pt' }) {
         <div className="container">
           <div className="footer-right">
             <a className="footer-brand-link" href="./index.html#inicio" aria-label={common.brandAlt}>
-              <img src="/assets/logo-debora-paiva.png" alt={common.brandAlt} />
+              <img src={media.footerLogo} alt={common.brandAlt} />
             </a>
             <span className="logo-oab logo-oab-footer footer-oab-center">OAB/AM 17.317</span>
             <div className="footer-contact-group">

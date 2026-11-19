@@ -1,7 +1,7 @@
 import { business } from '../src/business.js'
 import { languages, localeTags, pagePath } from '../src/siteRoutes.js'
 
-export function structuredData(origin, language = 'pt', file = 'index.html') {
+export function structuredData(origin, language, file, portraitUrl) {
   const url = new URL('/', origin).href
   return {
     '@context': 'https://schema.org',
@@ -13,7 +13,7 @@ export function structuredData(origin, language = 'pt', file = 'index.html') {
         url,
         telephone: `+${business.whatsappNumber}`,
         email: business.email,
-        image: new URL('/assets/debora-sobre.jpeg', url).href,
+        image: new URL(portraitUrl, url).href,
         areaServed: { '@type': 'City', name: business.city },
         description: 'Advocacia em Direito de Família e Direito Civil em Manaus. Atendimento somente com hora marcada.',
         sameAs: [business.instagramUrl],

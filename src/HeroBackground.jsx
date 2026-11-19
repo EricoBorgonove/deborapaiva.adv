@@ -1,3 +1,4 @@
+import { media } from './media.js'
 import { useEffect, useRef } from 'react'
 import { useMediaQuery } from './useMediaQuery.js'
 
@@ -28,8 +29,8 @@ function HeroBackground() {
   return (
     <div className="hero-video" aria-hidden="true">
       {enabled && (
-        <video ref={videoRef} autoPlay loop muted playsInline preload="none" poster="/assets/front-view-blurry-lawyer-working.jpg">
-          <source src="/assets/hero-background-optimized.mp4" type="video/mp4" />
+        <video ref={videoRef} autoPlay loop muted playsInline preload="none" poster={media.heroPoster}>
+          <source src={media.heroVideo} type="video/mp4" />
         </video>
       )}
     </div>
