@@ -3,7 +3,6 @@ import './App.css'
 import PrivacyBanner from './PrivacyBanner.jsx'
 import WhatsAppModal from './WhatsAppModal.jsx'
 import { buildWhatsAppMessage, translations } from './i18n.js'
-import { useLanguage } from './useLanguage.js'
 
 const footerContact = {
   whatsappNumber: '5592984442917',
@@ -16,30 +15,8 @@ const footerContact = {
 
 const whatsappBaseLink = `https://wa.me/${footerContact.whatsappNumber}`
 
-function LanguageToggle({ language, onSelect, ariaLabel, className = '' }) {
-  return (
-    <div className={`language-toggle ${className}`.trim()} role="group" aria-label={ariaLabel}>
-      <button type="button" className={language === 'pt' ? 'is-active' : ''} onClick={() => onSelect('pt')}>
-        PT
-      </button>
-      <span aria-hidden="true">|</span>
-      <button type="button" className={language === 'en' ? 'is-active' : ''} onClick={() => onSelect('en')}>
-        EN
-      </button>
-      <span aria-hidden="true">|</span>
-      <button type="button" className={language === 'es' ? 'is-active' : ''} onClick={() => onSelect('es')}>
-        ES
-      </button>
-      <span aria-hidden="true">|</span>
-      <button type="button" className={language === 'fr' ? 'is-active' : ''} onClick={() => onSelect('fr')}>
-        FR
-      </button>
-    </div>
-  )
-}
-
 function BlogPage() {
-  const [language, setLanguage] = useLanguage()
+  const language = 'pt'
   const [isWhatsAppModalOpen, setIsWhatsAppModalOpen] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isNavCollapsed, setIsNavCollapsed] = useState(false)
@@ -48,7 +25,7 @@ function BlogPage() {
   const { common, blog } = t
 
   useEffect(() => {
-    document.documentElement.lang = language === 'en' ? 'en' : language === 'es' ? 'es' : language === 'fr' ? 'fr' : 'pt-BR'
+    document.documentElement.lang = 'pt-BR'
   }, [language])
 
   function openWhatsAppModal(event) {
@@ -121,7 +98,6 @@ function BlogPage() {
               <button type="button" className="nav-text-link nav-text-link-disabled" aria-disabled="true" disabled>
                 {common.nav.enter}
               </button>
-              <LanguageToggle language={language} onSelect={setLanguage} ariaLabel={common.nav.languageAria} className="nav-language" />
               <a className="button button-small nav-cta" href="./index.html#inicio">
                 {common.nav.backToSite} <span className="cta-arrow">→</span>
               </a>
@@ -141,12 +117,6 @@ function BlogPage() {
                 {common.nav.blog}
               </a>
               <span className="mobile-menu-disabled">{common.nav.enter}</span>
-              <LanguageToggle
-                language={language}
-                onSelect={setLanguage}
-                ariaLabel={common.nav.languageAria}
-                className="mobile-language-toggle"
-              />
               <a className="button button-small" href="./index.html#inicio" onClick={closeMobileMenu}>
                 {common.nav.backToSite}
               </a>

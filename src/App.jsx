@@ -3,7 +3,6 @@ import './App.css'
 import PrivacyBanner from './PrivacyBanner.jsx'
 import WhatsAppModal from './WhatsAppModal.jsx'
 import { buildWhatsAppMessage, translations } from './i18n.js'
-import { useLanguage } from './useLanguage.js'
 import { useMediaQuery } from './useMediaQuery.js'
 import HeroBackground from './HeroBackground.jsx'
 
@@ -18,30 +17,8 @@ const contact = {
 
 const whatsappBaseLink = `https://wa.me/${contact.whatsappNumber}`
 
-function LanguageToggle({ language, onSelect, ariaLabel, className = '' }) {
-  return (
-    <div className={`language-toggle ${className}`.trim()} role="group" aria-label={ariaLabel}>
-      <button type="button" className={language === 'pt' ? 'is-active' : ''} onClick={() => onSelect('pt')}>
-        PT
-      </button>
-      <span aria-hidden="true">|</span>
-      <button type="button" className={language === 'en' ? 'is-active' : ''} onClick={() => onSelect('en')}>
-        EN
-      </button>
-      <span aria-hidden="true">|</span>
-      <button type="button" className={language === 'es' ? 'is-active' : ''} onClick={() => onSelect('es')}>
-        ES
-      </button>
-      <span aria-hidden="true">|</span>
-      <button type="button" className={language === 'fr' ? 'is-active' : ''} onClick={() => onSelect('fr')}>
-        FR
-      </button>
-    </div>
-  )
-}
-
 function App() {
-  const [language, setLanguage] = useLanguage()
+  const language = 'pt'
   const [isWhatsAppModalOpen, setIsWhatsAppModalOpen] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isNavCollapsed, setIsNavCollapsed] = useState(false)
@@ -56,7 +33,7 @@ function App() {
   const reducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)', true)
 
   useEffect(() => {
-    document.documentElement.lang = language === 'en' ? 'en' : language === 'es' ? 'es' : language === 'fr' ? 'fr' : 'pt-BR'
+    document.documentElement.lang = 'pt-BR'
   }, [language])
 
   useEffect(() => {
@@ -132,10 +109,6 @@ function App() {
     setIsNavCollapsed(false)
   }
 
-  function handleLanguageSelect(nextLanguage) {
-    setLanguage(nextLanguage)
-  }
-
   function handleWhatsAppSubmit({ name, subject }) {
     const message = buildWhatsAppMessage(language, { name, subject })
     const url = `https://wa.me/${contact.whatsappNumber}?text=${encodeURIComponent(message)}`
@@ -181,12 +154,6 @@ function App() {
                   <button type="button" className="nav-text-link nav-text-link-disabled" aria-disabled="true" disabled>
                     {common.nav.enter}
                   </button>
-                  <LanguageToggle
-                    language={language}
-                    onSelect={handleLanguageSelect}
-                    ariaLabel={common.nav.languageAria}
-                    className="nav-language"
-                  />
                   <a
                     className="button button-small nav-cta"
                     href={whatsappBaseLink}
@@ -213,12 +180,6 @@ function App() {
                     {common.nav.blog}
                   </a>
                   <span className="mobile-menu-disabled">{common.nav.enter}</span>
-                  <LanguageToggle
-                    language={language}
-                    onSelect={handleLanguageSelect}
-                    ariaLabel={common.nav.languageAria}
-                    className="mobile-language-toggle"
-                  />
                   <a className="button button-small" href={whatsappBaseLink} target="_blank" rel="noreferrer" onClick={openWhatsAppModal}>
                     {common.nav.contact}
                   </a>
