@@ -41,7 +41,8 @@ as URLs padrão. O Nginx devolve 404 para caminhos inexistentes e 410 para
 os antigos caminhos de sorteio. Não há fallback universal para a home.
 
 O HTML usa `no-cache`; fotos e logos sem hash usam cache de uma hora com revalidação.
-Somente JS/CSS com hash usam `immutable` por um ano. Erros usam `no-store`.
+Bundles, fontes e mídias com hash de conteúdo usam `immutable` por um ano.
+Arquivos legados sem hash continuam com cache de uma hora. Erros usam `no-store`.
 Os cabeçalhos de segurança são aplicados também a erros. A CSP permite fontes e
 estilos somente da própria origem. O proxy TLS deve sobrescrever `X-Forwarded-Proto`, manter o
 contêiner privado e redirecionar HTTP para HTTPS; o HSTS depende desse sinal confiável.
@@ -63,6 +64,16 @@ Origem: https://github.com/google/fonts/tree/main/ofl/manrope
 O TTF original foi comprimido em WOFF2 com FontTools, sem subsetting.
 A licença SIL OFL 1.1 está incluída em `public/licenses/manrope-OFL.txt`.
 O navegador não depende da API ou do CDN do Google Fonts para carregar a fonte.
+
+## Atualização de fotos, logos e vídeo
+
+As mídias em uso estão em `src/assets/` e são importadas por `src/media.js`, pelo CSS
+ou pelo HTML de entrada. Ao substituir um arquivo, o Vite gera uma URL diferente
+com hash de conteúdo. Não é necessário escolher manualmente um novo nome.
+O HTML, o CSS, o cliente React, o Open Graph e o JSON-LD usam os mesmos URLs emitidos.
+Isso evita reutilizar a versão antiga mesmo em navegadores ou proxies que a guardem
+por um ano. Os antigos URLs sem hash da foto e do vídeo não são mais publicados.
+Depois da implantação, confira a URL que está no HTML novo, não a do arquivo antigo.
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
