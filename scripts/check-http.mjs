@@ -22,6 +22,7 @@ for (const [path, status, type, cache] of [
   ['/data/participantes.json', 410, 'text/html', 'no-store'],
   ['/sorteio', 410, 'text/html', 'no-store'],
   ['/assets/debora-sobre.jpeg', 200, 'image/jpeg', 'max-age=3600'],
+  ['/assets/hero-background-optimized.mp4', 200, 'video/mp4', 'max-age=3600'],
   [`/assets/${hashed}`, 200, 'javascript', 'immutable'],
   [`/assets/${font}`, 200, 'font/woff2', 'immutable'],
 ]) {
@@ -44,3 +45,23 @@ const revalidated = await fetch(base, { headers: { 'If-None-Match': html.headers
 assert.equal(revalidated.status, 304)
 assert.equal(revalidated.headers.get('x-content-type-options'), 'nosniff')
 console.log('HTTPS HSTS and conditional HTML revalidation: OK')
+
+for (const path of ['/assets/debora-sobre.jpeg', '/assets/hero-background-optimized.mp4']) {
+  let etag
+  for (const method of ['GET', 'HEAD']) {
+    const response = await fetch(new URL(path, base), { method })
+    assert.equal(response.status, 200, `${method} ${path}`)
+    assert.equal(response.headers.get('cache-control'), 'public, max-age=3600, must-revalidate', `${method} ${path}`)
+    etag = response.headers.get('etag')
+    assert.ok(etag, path)
+    await response.body?.cancel()
+  }
+  const range = await fetch(new URL(path, base), { headers: { Range: 'bytes=0-31' } })
+  assert.equal(range.status, 206, path)
+  assert.equal(range.headers.get('cache-control'), 'public, max-age=3600, must-revalidate', path)
+  await range.body?.cancel()
+  const unchanged = await fetch(new URL(path, base), { headers: { 'If-None-Match': etag } })
+  assert.equal(unchanged.status, 304, path)
+  assert.equal(unchanged.headers.get('cache-control'), 'public, max-age=3600, must-revalidate', path)
+  console.log(`${path}: GET, HEAD, 206 and 304 enforce one-hour cache without immutable`)
+}
