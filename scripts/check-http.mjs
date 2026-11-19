@@ -4,7 +4,9 @@ import { readdir } from 'node:fs/promises'
 const base = process.env.BASE_URL || 'http://127.0.0.1:4180'
 const assets = await readdir('dist/assets')
 const hashed = assets.find((file) => /-[a-z0-9_-]{8}\.js$/i.test(file))
+const font = assets.find((file) => file.endsWith('.woff2'))
 assert.ok(hashed, 'Built hashed bundle missing')
+assert.ok(font, 'Built local font missing')
 for (const [path, status, type, cache] of [
   ['/', 200, 'text/html', 'no-cache'],
   ['/blog', 200, 'text/html', 'no-cache'],
@@ -21,6 +23,7 @@ for (const [path, status, type, cache] of [
   ['/sorteio', 410, 'text/html', 'no-store'],
   ['/assets/debora-sobre.jpeg', 200, 'image/jpeg', 'max-age=3600'],
   [`/assets/${hashed}`, 200, 'javascript', 'immutable'],
+  [`/assets/${font}`, 200, 'font/woff2', 'immutable'],
 ]) {
   const response = await fetch(new URL(path, base))
   assert.equal(response.status, status, path)
@@ -29,6 +32,9 @@ for (const [path, status, type, cache] of [
   assert.equal(response.headers.get('x-content-type-options'), 'nosniff', path)
   assert.equal(response.headers.get('referrer-policy'), 'strict-origin-when-cross-origin', path)
   assert.ok(response.headers.get('content-security-policy').includes("frame-ancestors 'none'"), path)
+  assert.ok(response.headers.get('content-security-policy').includes("font-src 'self';"), path)
+  assert.ok(response.headers.get('content-security-policy').includes("style-src 'self';"), path)
+  assert.ok(!response.headers.get('content-security-policy').includes('google'), path)
   console.log(`${path}: ${status}; headers and cache OK`)
 }
 const secure = await fetch(base, { headers: { 'X-Forwarded-Proto': 'https' } })
