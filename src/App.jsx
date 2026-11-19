@@ -1,3 +1,4 @@
+import { business } from './business.js'
 import { useEffect, useRef, useState } from 'react'
 import './App.css'
 import PrivacyBanner from './PrivacyBanner.jsx'
@@ -6,14 +7,7 @@ import { buildWhatsAppMessage, translations } from './i18n.js'
 import { useMediaQuery } from './useMediaQuery.js'
 import HeroBackground from './HeroBackground.jsx'
 
-const contact = {
-  whatsappNumber: '5592984442917',
-  whatsappDisplay: '+55 92 98444-2917',
-  email: 'contato@deborapaiva.adv.br',
-  cityDisplay: 'Manaus - AM',
-  instagramUrl: 'https://instagram.com/deborapaiva.adv',
-  instagramDisplay: '@deborapaiva.adv',
-}
+const contact = business
 
 const whatsappBaseLink = `https://wa.me/${contact.whatsappNumber}`
 
