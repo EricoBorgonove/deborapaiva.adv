@@ -2,6 +2,7 @@ import { mkdtemp, readFile, writeFile, rm } from 'node:fs/promises'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { build } from 'vite'
+import { structuredData } from './structured-data.mjs'
 
 const output = await mkdtemp(join('node_modules', '.site-deb-ssg-'))
 const siteUrl = new URL(process.env.SITE_URL || 'https://deborapaiva.adv.br')
@@ -28,6 +29,7 @@ try {
     const image = new URL('/assets/debora-sobre.jpeg', siteUrl).href
     const escape = (value) => value.replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;')
     const tags = [
+      `<script type="application/ld+json">${JSON.stringify(structuredData(siteUrl)).replaceAll('<', '\\u003c')}</script>`,
       `<link rel="canonical" href="${escape(url)}" />`,
       ...Object.entries({
         'og:type': 'website', 'og:locale': 'pt_BR',
