@@ -96,7 +96,7 @@ export const translations = {
       navContactAria: 'Abrir contato no WhatsApp',
       heroEyebrow: 'ADVOCACIA ESTRATÉGICA',
       heroTitle: 'Atendimento humanizado e firme na defesa dos seus direitos.',
-      heroText: 'Atuação em Direito de Família e Civil. Atendimento transparente, firme e humanizado, com total confidencialidade.',
+      heroText: 'Atuação em Direito de Família e Civil em Manaus. Atendimento transparente, firme e humanizado, com total confidencialidade e somente com hora marcada.',
       heroPrimaryCta: 'Agendar consulta',
       heroSecondaryCta: 'Conhecer áreas',
       panelEyebrow: 'Atendimento inicial',
