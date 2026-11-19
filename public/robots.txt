@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://deborapaiva.adv.br/sitemap.xml
